@@ -13,6 +13,20 @@ class Board:
         self.red_kings = self.white_kings = 0
         self.reset_pieces()
 
+    def move(self, piece, row, col):
+        self.board[piece.row][piece.col], self.board[row][col] = self.board[row][col], self.board[piece.row][piece.col]
+        piece.move(row, col)
+
+        if row == 0 or row == ROWS:
+            piece.make_king()
+            if piece.color == WHITE:
+                self.white_kings += 1
+            else:
+                self.red_kings += 1
+
+    def get_piece(self, row, col):
+        return self.board[row][col]
+
     def draw_board_pattern(self, win):
         win.fill(BLACK)
         for row in range(ROWS):
@@ -36,7 +50,6 @@ class Board:
 
     def draw(self, win):
         self.draw_board_pattern(win)
-        print(self.board)
         for row in range(ROWS):
             for col in range(COLS):
                 piece = self.board[row][col]
