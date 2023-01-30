@@ -33,6 +33,8 @@ def main():
                 row, col = get_row_col_from_mouse(pos)
                 if game.turn == RED:
                     game.select(row, col)
+                else:
+                    game.select(row, col)
 
         game.update()
 
